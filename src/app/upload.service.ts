@@ -36,6 +36,11 @@ uploadfileExpress(file:any){
   formData.append('file', file)
   return this.http.post(this.api+ "upload", formData)
 }
+uploadfilesExpress(file:any){
+  const formData = new FormData()
+  formData.append('file', file)
+  return this.http.post(this.api+ "upload-multiple", formData)
+}
 
 uploadFile(file:any){
   const filename=Date.now()+"-"+String(Math.round(Math.random()*89999)+10000)+file.name

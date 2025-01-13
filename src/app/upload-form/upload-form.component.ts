@@ -21,6 +21,15 @@ export class UploadFormComponent {
     this.currentFileUpload=false
   }
 
+  uploadMultiple() {
+    this.uploadFile.uploadfileExpress(this.selectFiles).subscribe(
+      {
+        next:(res) => console.log(res),
+        error:(err) => console.log(err)
+      }
+    )
+  }
+
   upload(){
     console.log("upload")
     console.log(this.selectedFiles)
