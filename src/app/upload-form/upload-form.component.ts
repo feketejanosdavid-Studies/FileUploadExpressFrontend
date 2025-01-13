@@ -27,15 +27,23 @@ export class UploadFormComponent {
     this.currentFileUpload=true
 
     for (const file of this.selectedFiles) { 
-     this.uploadFile.uploadFile(file)     
-      .subscribe(
-      (percentage:any)=>
-        {
-          this.percentage=Math.round(percentage?percentage:0)
-          console.log(this.percentage)
-        }
+    this.uploadFile.uploadfileExpress(file).subscribe(
+      {
+        next:(res) => console.log(res),
+        error:(err) => console.log(err)
+      }
     )
   }
+  //   for (const file of this.selectedFiles) { 
+  //    this.uploadFile.uploadFile(file)     
+  //     .subscribe(
+  //     (percentage:any)=>
+  //       {
+  //         this.percentage=Math.round(percentage?percentage:0)
+  //         console.log(this.percentage)
+  //       }
+  //   )
+  // }
 
   }
 

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -9,8 +10,13 @@ import { finalize } from 'rxjs';
 export class UploadService {
   path="/uploads"
 
+  
+
+  api = "http://localhost:3000/"
+
   constructor(private db:AngularFireDatabase, 
-    private storage:AngularFireStorage) { }
+    private storage:AngularFireStorage, private http:HttpClient) { }
+    
 
 
 saveFileData(url:any, filename:any){
@@ -21,7 +27,15 @@ getFiles(){
   return this.db.list(this.path)
 }
 
+getFilesExpress() {
+  return this.http.get(this.api+"files")
+}
 
+uploadfileExpress(file:any){
+  const formData = new FormData()
+  formData.append('file', file)
+  return this.http.post(this.api+ "upload", formData)
+}
 
 uploadFile(file:any){
   const filename=Date.now()+"-"+String(Math.round(Math.random()*89999)+10000)+file.name
@@ -40,6 +54,10 @@ uploadFile(file:any){
 
   return  uploadTask.percentageChanges()
 
+}
+
+deleteFileExpress(file:any){
+  return this.http.delete(this.api+"files/"+file)
 }
 
 deleteFile(file:any){
